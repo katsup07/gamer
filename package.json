@@ -1,0 +1,25 @@
+{
+  "name": "gamer",
+  "version": "1.0.0",
+  "description": "A service for renting video games.",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/katsup07/gamer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/katsup07/gamer/issues"
+  },
+  "homepage": "https://github.com/katsup07/gamer#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "joi": "^13.1.0",
+    "mongoose": "^5.0.1",
+    "nodemon": "^2.0.22"
+  }
+}
