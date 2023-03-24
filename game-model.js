@@ -1,16 +1,11 @@
 const mongoose = require('mongoose');
 
-mongoose
-	.connect('mongodb://localhost/games')
-	.then(() => console.log('Connected to MongoDb...'))
-	.catch((err) => console.log('Could not connect to MongoDb...', err));
-
 const gameSchema = new mongoose.Schema({
-	name: String,
-	developer: String,
+	name: { type: String, required: true, minlength: 3, maxlength: 50 },
+	developer: { type: String, required: true, minlength: 3, maxlength: 50 },
 	tags: [String],
 	date: { type: Date, default: Date.now },
-	isPublished: Boolean,
+	isPublished: { type: Boolean, required: true},
 });
 
 const Game = mongoose.model('Game', gameSchema);
@@ -21,7 +16,7 @@ async function createGame(newGame) {
 }
 
 async function getGames() {
-	return await Game.find({});
+	return await Game.find({}).sort('name');
 }
 
 async function getGame(id) {
@@ -44,7 +39,7 @@ async function updateGame(id, { name, developer, tags, isPublished }) {
 	);
 	return result;
 
-  // == query first
+	// == query first
 	// const game = await Game.findById(id);
 	// if(!game) return;
 	// game.name = 'Elder Scrolls 6';
