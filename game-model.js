@@ -15,16 +15,52 @@ const gameSchema = new mongoose.Schema({
 
 const Game = mongoose.model('Game', gameSchema);
 
-async function createGame(){
-  const game = new Game({
-    name: 'Elder Scrolls 6',
-    developer: 'Bethesda Game Studios',
-    tags: ['fantasy', 'rpg', 'open world'],
-    isPublished: false,
-  });
-  console.log('awaiting result...');
-  const result = await game.save();
-  console.log(result);
+async function createGame(newGame) {
+	const game = new Game(newGame);
+	return await game.save();
 }
 
-createGame();
+async function getGames() {
+	return await Game.find({});
+}
+
+async function getGame(id) {
+	return await Game.findById(id);
+}
+
+async function updateGame(id, { name, developer, tags, isPublished }) {
+	// == update first
+	const result = await Game.findByIdAndUpdate(
+		id,
+		{
+			$set: {
+				name,
+				developer,
+				tags,
+				isPublished,
+			},
+		},
+		{ new: true }
+	);
+	return result;
+
+  // == query first
+	// const game = await Game.findById(id);
+	// if(!game) return;
+	// game.name = 'Elder Scrolls 6';
+	// const result = await game.save();
+}
+
+async function deleteGame(id) {
+	// const result = await Game.deleteOne({_id: id});
+	return await Game.findByIdAndRemove(id);
+}
+
+module.exports = {
+	Game,
+	createGame,
+	getGames,
+	getGame,
+	updateGame,
+	deleteGame,
+};
