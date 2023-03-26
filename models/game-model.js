@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Joi = require('joi');
 
 const gameSchema = new mongoose.Schema({
 	name: { type: String, required: true, minlength: 3, maxlength: 50 },
@@ -51,6 +52,22 @@ async function deleteGame(id) {
 	return await Game.findByIdAndRemove(id);
 }
 
+// === helpers ===
+function validateId(id){
+  return mongoose.Types.ObjectId.isValid(id);
+}
+
+function validateGame(game){
+  const schema = {
+    name: Joi.string().min(3).required(),
+    developer: Joi.string().min(2).required(),
+    tags: Joi.array().items(Joi.string()),
+    isPublished: Joi.boolean().required()
+  };
+
+  return Joi.validate(game, schema);
+}
+
 module.exports = {
 	Game,
 	createGame,
@@ -58,4 +75,6 @@ module.exports = {
 	getGame,
 	updateGame,
 	deleteGame,
+  validateId,
+  validateGame
 };
