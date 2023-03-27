@@ -20,7 +20,7 @@ router.get('/:id', async(req, res) => {
   try{
   const game = await getGame(id);
   if(!game) return res.status(404).send('Game could not be found.');
-
+ 
   res.send(game);
   } catch(err){
     res.status(500).send('Something went wrong on the server: ' + err);

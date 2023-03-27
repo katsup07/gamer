@@ -6,7 +6,11 @@ const gameSchema = new mongoose.Schema({
 	developer: { type: String, required: true, minlength: 3, maxlength: 50 },
 	tags: [String],
 	date: { type: Date, default: Date.now },
-	isPublished: { type: Boolean, required: true},
+	isPublished: { type: Boolean, required: true },
+	price: {
+		type: Number,
+		required: true,
+	},
 });
 
 const Game = mongoose.model('Game', gameSchema);
@@ -24,7 +28,7 @@ async function getGame(id) {
 	return await Game.findById(id);
 }
 
-async function updateGame(id, { name, developer, tags, isPublished }) {
+async function updateGame(id, { name, developer, tags, isPublished, price }) {
 	// == update first
 	const result = await Game.findByIdAndUpdate(
 		id,
@@ -34,6 +38,7 @@ async function updateGame(id, { name, developer, tags, isPublished }) {
 				developer,
 				tags,
 				isPublished,
+        price
 			},
 		},
 		{ new: true }
@@ -53,19 +58,20 @@ async function deleteGame(id) {
 }
 
 // === helpers ===
-function validateId(id){
-  return mongoose.Types.ObjectId.isValid(id);
+function validateId(id) {
+	return mongoose.Types.ObjectId.isValid(id);
 }
 
-function validateGame(game){
-  const schema = {
-    name: Joi.string().min(3).required(),
-    developer: Joi.string().min(2).required(),
-    tags: Joi.array().items(Joi.string()),
-    isPublished: Joi.boolean().required()
-  };
+function validateGame(game) {
+	const schema = {
+		name: Joi.string().min(3).required(),
+		developer: Joi.string().min(3).required(),
+		tags: Joi.array().items(Joi.string()),
+		isPublished: Joi.boolean().required(),
+    price: Joi.number().min(1).max(10000).required()
+	};
 
-  return Joi.validate(game, schema);
+	return Joi.validate(game, schema);
 }
 
 module.exports = {
@@ -75,6 +81,6 @@ module.exports = {
 	getGame,
 	updateGame,
 	deleteGame,
-  validateId,
-  validateGame
+	validateId,
+	validateGame,
 };
