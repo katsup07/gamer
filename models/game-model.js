@@ -75,7 +75,7 @@ function validateGame(game) {
 }
 
 module.exports = {
-	Game,
+  gameSchema,
 	createGame,
 	getGames,
 	getGame,

@@ -68,4 +68,4 @@ function validateCustomer(customer){
 
 
 
-module.exports = { createCustomer, getCustomers, getCustomer, updateCustomer, deleteCustomer, validateId, validateCustomer };
+module.exports = { customerSchema, createCustomer, getCustomers, getCustomer, updateCustomer, deleteCustomer, validateId, validateCustomer };
