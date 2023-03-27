@@ -54,7 +54,9 @@ async function getOrders() {
 		.select('customer.name')
 		.select('customer.isGold')
 		.select('customer.total')
-    .select('total');
+    .select('total')
+    .select('date')
+    .sort('-date');
 }
 
 function validateOrder(order) {
