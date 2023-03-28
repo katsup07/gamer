@@ -4,7 +4,7 @@ const { createOrder, getOrders, validateOrder } = require('../models/order-model
 const { getCustomer } = require('../models/customer-model');
 const { getGame } = require('../models/game-model');
 
-// == api.orders
+// == /api/orders
 router.get('/', async(req, res) => {
   try{
   res.send(await getOrders());
