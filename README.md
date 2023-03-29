@@ -1,7 +1,7 @@
 # gamer
 A REST API for an online video game store built with node.js and express.js.
 ## Installation for development
-download zipfile<br>
+download zip file<br>
 run `npm install` in root directoy to install dependencies<br>
 run `npm start` to run nodemon<br>
 set environment variable `$env:gamer_jwtPrivateKey="any_string_you_want"` (Method for setting varies based on OS)<br>
