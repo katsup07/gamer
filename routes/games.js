@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
+const admin = require('../middleware/admin');
 const {createGame, getGames, getGame, updateGame, deleteGame, validateGame, validateId } = require('../models/game-model');
 
 // == /api/games ==
@@ -28,7 +30,8 @@ router.get('/:id', async(req, res) => {
 });
 
 
-router.post('/', async(req, res) => {
+router.post('/', auth, async(req, res) => {
+
   const { body: game } = req;
   const { error } = validateGame(game);
   if(error) return res.status(400).send(error.details[0].message);
@@ -45,7 +48,7 @@ router.post('/', async(req, res) => {
   }
 });
 
-router.put('/:id', async(req, res) => {
+router.put('/:id', auth, async(req, res) => {
   const { id } = req.params;
   const { body: game } = req;
   const { error } = validateGame(game);
@@ -64,7 +67,7 @@ router.put('/:id', async(req, res) => {
   }
 });
 
-router.delete('/:id', async(req, res) =>  {
+router.delete('/:id', [auth, admin], async(req, res) =>  {
   const { id } = req.params;
   try{
   if(!validateId(id)) return res.status(400).send('Invalid id');

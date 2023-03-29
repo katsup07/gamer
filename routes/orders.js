@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
 const { createOrder, getOrders, validateOrder } = require('../models/order-model');
 const { getCustomer } = require('../models/customer-model');
 const { getGame } = require('../models/game-model');
@@ -13,7 +14,7 @@ router.get('/', async(req, res) => {
   }
 });
 
-router.post('/', async(req, res) => {
+router.post('/', auth, async(req, res) => {
   const {customerId, gameIds} = req.body;
   if(!customerId || !gameIds) return res.status(400).send('Missing customerId or gameIds');
 
