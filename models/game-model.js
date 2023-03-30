@@ -4,7 +4,10 @@ const Joi = require('joi');
 const gameSchema = new mongoose.Schema({
 	name: { type: String, required: true, minlength: 3, maxlength: 50 },
 	developer: { type: String, required: true, minlength: 3, maxlength: 50 },
-	tags: [String],
+	tags: {
+    type: [String],
+    default: [],
+  },
 	date: { type: Date, default: Date.now },
 	isPublished: { type: Boolean, required: true },
 	price: {
@@ -28,7 +31,7 @@ async function getGame(id) {
 	return await Game.findById(id);
 }
 
-async function updateGame(id, { name, developer, tags, isPublished, price }) {
+async function updateGame(id, { name, developer, tags = [], isPublished, price }) {
 	// == update first
 	const result = await Game.findByIdAndUpdate(
 		id,
