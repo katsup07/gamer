@@ -5,7 +5,7 @@ const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
 const {createGame, getGames, getGame, updateGame, deleteGame, validateGame, validateId } = require('../models/game-model');
 
-
+// !! TODO - Add async try/catch middleware to other routes
 // == /api/games ==
 router.get('/', asyncTryCatchMiddleware( async(req, res) => {
     throw 'Could not get the games.';
