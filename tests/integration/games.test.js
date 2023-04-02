@@ -1,6 +1,6 @@
 const request = require('supertest');
 const { Game } = require('../../models/game-model');
-const { Customer } = require('../../models/game-model');
+const { User } = require('../../models/user-model');
 const mongoose = require('mongoose');
 let server;
 
@@ -63,5 +63,94 @@ describe('/api/games', () => {
       expect(res.body).toHaveProperty('price', game.price);
       expect(res.body).toHaveProperty('isPublished', game.isPublished);
     })
+  });
+
+  describe('POST /', () => {
+    it('should return 401 if client is not logged in', async() => {
+      const res = await request(server).post('/api/games').send({name: 'game1'});
+      expect(res.status).toBe(401);
+    });
+
+    it('should return 400 if client is logged in but supplies game with name length less than 5 chars', async() => {
+      const user = new User({name: 'john', email: 'john@test.com', password:'12345', isAdmin: true});
+      const token = user.generateAuthToken();
+      const res = await request(server).post('/api/games').send({name: '12', developer: '123', isPublished: false, price: '1.23' }).set('x-auth-token', token);
+      expect(res.status).toBe(400);
+    });
+    it('should return 400 if client is logged in but supplies game with name length more than 50 chars', async() => {
+      const fiftyOneCharacters = new Array(52).join('a');
+      const user = new User({name: 'john', email: 'john@test.com', password:'12345', isAdmin: true});
+      const token = user.generateAuthToken();
+      const res = await request(server).post('/api/games').send({name: fiftyOneCharacters, developer: '123', isPublished: false, price: '1.23' }).set('x-auth-token', token);
+      expect(res.status).toBe(400);
+    });
+
+    it('should return 400 if client is logged in but supplies game with developer length less than 5 chars', async() => {
+      const user = new User({name: 'john', email: 'john@test.com', password:'12345', isAdmin: true});
+      const token = user.generateAuthToken();
+      const res = await request(server).post('/api/games').send({name: '123', developer: '12', isPublished: false, price: '1.23' }).set('x-auth-token', token);
+      expect(res.status).toBe(400);
+    });
+    it('should return 400 if client is logged in but supplies game with developer length more than 50 chars', async() => {
+      const fiftyOneCharacters = new Array(52).join('a');
+      const user = new User({name: 'john', email: 'john@test.com', password:'12345', isAdmin: true});
+      const token = user.generateAuthToken();
+      const res = await request(server).post('/api/games').send({name: '123', developer: fiftyOneCharacters, isPublished: false, price: '1.23' }).set('x-auth-token', token);
+      expect(res.status).toBe(400);
+    });
+
+    it('should return 400 if client is logged in but fails to supply a name field', async() => {
+      const user = new User({name: 'john', email: 'john@test.com', password:'12345', isAdmin: true});
+      const token = user.generateAuthToken();
+      const res = await request(server).post('/api/games').send({ developer: '123', isPublished: false, price: '1.23' }).set('x-auth-token', token);
+      expect(res.status).toBe(400);
+    });
+
+    it('should return 400 if client is logged in but fails to supply a developer field', async() => {
+      const user = new User({name: 'john', email: 'john@test.com', password:'12345', isAdmin: true});
+      const token = user.generateAuthToken();
+      const res = await request(server).post('/api/games').send({ name: '123', isPublished: false, price: '1.23' }).set('x-auth-token', token);
+      expect(res.status).toBe(400);
+    });
+
+    it('should return 400 if client is logged in but fails to supply a price field', async() => {
+      const user = new User({name: 'john', email: 'john@test.com', password:'12345', isAdmin: true});
+      const token = user.generateAuthToken();
+      const res = await request(server).post('/api/games').send({ name: '123', developer: '123', isPublished: false}).set('x-auth-token', token);
+      expect(res.status).toBe(400);
+    });
+
+    it('should return 400 if client is logged in but fails to supply an isPublished field', async() => {
+      const user = new User({name: 'john', email: 'john@test.com', password:'12345', isAdmin: true});
+      const token = user.generateAuthToken();
+      const res = await request(server).post('/api/games').send({ name: '123', developer: '123', price: '1.23' }).set('x-auth-token', token);
+      expect(res.status).toBe(400);
+    });
+
+    it('should return 200 and game object if all fields are supplied correctly', async() => {
+      const user = new User({name: 'john', email: 'john@test.com', password:'12345', isAdmin: true});
+      const token = user.generateAuthToken();
+      const res = await request(server).post('/api/games').send({ name: '123', developer: '123', price: '1.23', isPublished: false }).set('x-auth-token', token);
+      expect(res.status).toBe(200);
+      expect(res.body.name).toBe('123');
+      expect(res.body.developer).toBe('123');
+      expect(res.body.price).toBe(1.23);
+      expect(res.body.isPublished).toBe(false);
+    });
+
+    it('should save game in db and return its data if it is valid', async() => {
+      const user = new User({name: 'john', email: 'john@test.com', password:'12345', isAdmin: true});
+      const token = user.generateAuthToken();
+      
+      await request(server).post('/api/games').send({ name: '123', developer: '123', price: '1.23', isPublished: false }).set('x-auth-token', token);
+      
+      const result = await Game.find({name: '123'});
+      const gameInDb = result[0]._doc;
+      expect(gameInDb).toHaveProperty('_id');
+      expect(gameInDb.name).toBe('123');
+      expect(gameInDb.developer).toBe('123');
+      expect(gameInDb.price).toBe(1.23);
+      expect(gameInDb.isPublished).toBe(false);
+    });
   })
 });
