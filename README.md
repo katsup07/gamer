@@ -7,9 +7,9 @@ run `npm start` to run nodemon<br>
 set environment variable `$env:gamer_jwtPrivateKey="any_string_you_want"` (Method for setting varies based on OS)<br>
 app will be live on localhost:3000
 ## Testing
-Set the environment.<br>
-run `$env:NODE_ENV="test"` for testing. (Method for setting varies based on OS)
-run ` $env:NODE_ENV="development"` for development. (Method for setting varies based on OS)
+Set the environment type.<br>
+run `$env:NODE_ENV="test"` for testing. (Method for setting varies based on OS)<br>
+run ` $env:NODE_ENV="development"` for development. (Method for setting varies based on OS)<br>
 ## Manually Testing the api routes
 There currently is no front end app for testing, so something such as [`Postman`](https://www.postman.com/) will be needed to test the routes.
 ## Auth and Admin Routes
