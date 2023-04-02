@@ -63,8 +63,8 @@ async function deleteGame(id) {
 // === helpers ===
 function validateGame(game) {
 	const schema = {
-		name: Joi.string().min(3).required(),
-		developer: Joi.string().min(3).required(),
+		name: Joi.string().min(3).max(50).required(),
+		developer: Joi.string().min(3).max(50).required(),
 		tags: Joi.array().items(Joi.string()),
 		isPublished: Joi.boolean().required(),
     price: Joi.number().min(1).max(10000).required()
