@@ -61,10 +61,6 @@ async function deleteGame(id) {
 }
 
 // === helpers ===
-function validateId(id) {
-	return mongoose.Types.ObjectId.isValid(id);
-}
-
 function validateGame(game) {
 	const schema = {
 		name: Joi.string().min(3).required(),
@@ -78,12 +74,12 @@ function validateGame(game) {
 }
 
 module.exports = {
+  Game,
   gameSchema,
 	createGame,
 	getGames,
 	getGame,
 	updateGame,
 	deleteGame,
-	validateId,
 	validateGame,
 };

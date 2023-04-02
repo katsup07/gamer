@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
-const { createCustomer, getCustomers, getCustomer, updateCustomer, deleteCustomer, validateCustomer, validateId } = require('../models/customer-model');
+const validateId = require('../middleware/validateObjectId');
+const { createCustomer, getCustomers, getCustomer, updateCustomer, deleteCustomer, validateCustomer } = require('../models/customer-model');
 
 // == /api/customers ==
 router.get('/', async(req, res) =>  {
@@ -12,9 +13,8 @@ router.get('/', async(req, res) =>  {
   }
 });
 
-router.get('/:id', async(req, res) =>  {
+router.get('/:id', validateId, async(req, res) =>  {
  const { id } = req.params;
- if(!validateId(id)) return res.status(400).send('Invalid id');
 
  try{
   const customer = await getCustomer(id);

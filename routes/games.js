@@ -3,23 +3,19 @@ const router = express.Router();
 const asyncTryCatchMiddleware = require('../middleware/asyncTryCatchMiddleware');
 const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
-const {createGame, getGames, getGame, updateGame, deleteGame, validateGame, validateId } = require('../models/game-model');
+const validateId = require('../middleware/validateObjectId');
+const {createGame, getGames, getGame, updateGame, deleteGame, validateGame } = require('../models/game-model');
 
 // !! TODO - Add async try/catch middleware to other routes
 // == /api/games ==
 router.get('/', asyncTryCatchMiddleware( async(req, res) => {
-    throw 'Could not get the games.';
     const games = await getGames();
     res.send(games);
   })
 );
 
-router.get('/:id', asyncTryCatchMiddleware(async(req, res) => {
+router.get('/:id', validateId, asyncTryCatchMiddleware(async(req, res) => {
   const { id } = req.params;
-  
-  if(!validateId(id)) return res.status(400).send('Invalid id');
-  
-  
   const game = await getGame(id);
   if(!game) return res.status(404).send('Game could not be found.');
  

@@ -52,10 +52,6 @@ async function deleteCustomer(id){
 }
 
 // === Helpers
-function validateId(id){
-  return mongoose.Types.ObjectId.isValid(id);
-}
-
 function validateCustomer(customer){
   const schema = {
     name: Joi.string().min(5).max(50).required(),
@@ -68,4 +64,4 @@ function validateCustomer(customer){
 
 
 
-module.exports = { customerSchema, createCustomer, getCustomers, getCustomer, updateCustomer, deleteCustomer, validateId, validateCustomer };
+module.exports = { customerSchema, createCustomer, getCustomers, getCustomer, updateCustomer, deleteCustomer, validateCustomer };
