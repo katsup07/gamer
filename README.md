@@ -4,12 +4,12 @@ A REST API for an online video game store built with node.js and express.js.
 download zip file<br>
 run `npm install` in root directoy to install dependencies<br>
 run `npm start` to run nodemon<br>
-set environment variable `$env:gamer_jwtPrivateKey="any_string_you_want"` (Method for setting varies based on OS)<br>
+set environment variable `$env:gamer_jwtPrivateKey="any_string_you_want"` <sub>(Note: Syntax for setting depends on OS)</sub><br>
 app will be live on localhost:3000
-## Testing
+## Integration Testing
 Set the environment type.<br>
-run `$env:NODE_ENV="test"` for testing. (Method for setting varies based on OS)<br>
-run ` $env:NODE_ENV="development"` for development. (Method for setting varies based on OS)<br>
+run `$env:NODE_ENV="test"` for integration testing. <sub>(Note: Syntax for setting depends on OS)</sub><br>
+run `$env:NODE_ENV="development"` for development. <sub>(Note: Syntax for setting depends on OS)</sub><br>
 ## Manually Testing the api routes
 There currently is no front end app for testing, so something such as [`Postman`](https://www.postman.com/) will be needed to test the routes.
 ## Auth and Admin Routes
