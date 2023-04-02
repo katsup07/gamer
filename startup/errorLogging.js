@@ -1,5 +1,5 @@
 const winston = require('winston'); // logs locally
-require('winston-mongodb');// logs to mongodb
+// require('winston-mongodb');// logs to mongodb // commented out due to problems with integration testing
 
 module.exports = function(){
   process.on('uncaughtException', (ex) => {
@@ -15,5 +15,5 @@ module.exports = function(){
   
   // error logger
   winston.add(winston.transports.File, { filename: 'logfile.log'});
-  winston.add(winston.transports.MongoDB, { db: 'mongodb://localhost/games', level: "info"});
+ // winston.add(winston.transports.MongoDB, { db: 'mongodb://localhost/games', level: "info"});
 }

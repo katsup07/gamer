@@ -1,19 +1,18 @@
-const winston = require('winston');
 const express = require('express');
-const errorLoggingHandlers = require('./startup/errorLogging');
+const setErrorLoggingHandlers = require('./startup/errorLogging');
 const startDB = require('./startup/db');
-const routes = require('./startup/routes');
+const setRoutes = require('./startup/routes');
 const configJSONWebToken = require('./startup/config');
 const app = express();
 
 // config
 configJSONWebToken();
 // errors
-errorLoggingHandlers()
+setErrorLoggingHandlers()
 // db
 startDB()
 // routes
-routes(app);
+setRoutes(app);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
