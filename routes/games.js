@@ -24,7 +24,6 @@ router.get('/:id', validateId, asyncTryCatchMiddleware(async(req, res) => {
 
 
 router.post('/', auth, asyncTryCatchMiddleware(async(req, res) => {
-
   const { body: game } = req;
   const { error } = validateGame(game);
   if(error) return res.status(400).send(error.details[0].message);
