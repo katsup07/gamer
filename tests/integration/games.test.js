@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 let server;
 
 describe('/api/games', () => {
-  beforeEach(async() => {
+  beforeEach( () => {
     server = require('../../app');
   });
   afterEach(async() => {
