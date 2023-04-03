@@ -4,7 +4,7 @@
   "description": "A service for renting video games.",
   "main": "app.js",
   "scripts": {
-    "test": "jest --watchAll --verbose --color",
+    "test": "jest --watchAll --verbose --color --detectOpenHandles --coverage",
     "start": "nodemon app.js"
   },
   "repository": {
