@@ -43,10 +43,9 @@ router.post('/', auth, async(req, res) =>  {
   }
 });
 
-router.put('/:id', auth, async(req, res) =>  {
+router.put('/:id', [auth, validateId], async(req, res) =>  {
   const { body: newCustomerData } = req;
   const { id } = req.params;
- if(!validateId(id)) return res.status(400).send('Invalid id');
  
  const { error } = validateCustomer(newCustomerData)
  if(error) return res.status(400).send(error.details[0].message);
@@ -63,9 +62,8 @@ router.put('/:id', auth, async(req, res) =>  {
 
 });
 
-router.delete('/:id', auth, async(req, res) =>  {
+router.delete('/:id', [auth, validateId], async(req, res) =>  {
  const { id } = req.params;
- if(!validateId(id)) return res.status(400).send('Invalid id');
 
  try{
   const customer = await getCustomer(id);

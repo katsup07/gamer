@@ -38,14 +38,13 @@ router.post('/', auth, asyncTryCatchMiddleware(async(req, res) => {
   res.send(gameInDb);
 }));
 
-router.put('/:id', auth, asyncTryCatchMiddleware(async(req, res) => {
+router.put('/:id', [auth, validateId], asyncTryCatchMiddleware(async(req, res) => {
   const { id } = req.params;
+  console.log('!!!!!!!!! id:', id)
   const { body: game } = req;
   const { error } = validateGame(game);
   if(error) return res.status(400).send(error.details[0].message);
-  
-  if(!validateId(id)) return res.status(400).send('Invalid id');
-  
+
   const dbGame = await getGame(id);
   if(!dbGame) return res.status(400).send('No game with the given id was found.')
   // update game
@@ -53,10 +52,8 @@ router.put('/:id', auth, asyncTryCatchMiddleware(async(req, res) => {
   res.send(updatedGame);
 }));
 
-  router.delete('/:id', [auth, admin], asyncTryCatchMiddleware(async(req, res) =>  {
+  router.delete('/:id', [auth, admin, validateId], asyncTryCatchMiddleware(async(req, res) =>  {
   const { id } = req.params;
-
-  if(!validateId(id)) return res.status(400).send('Invalid id');
 
   const game = await getGame(id);
   if(!game) return res.status(404).send('No game with the given id was found.');
