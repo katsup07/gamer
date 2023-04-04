@@ -199,12 +199,12 @@ describe('/api/games', () => {
       expect(res.status).toBe(400);
     });
 
-    it('should return 401 if valid id is passed but no such id in database', async() => {
+    it('should return 404 if valid id is passed but no such id in database', async() => {
       const token = new User().generateAuthToken();
       const id = mongoose.Types.ObjectId();
       const game ={name: '123', developer: '123', isPublished: false, price: 1};
       const res = await request(server).put(`/api/games/${id}`).send(game).set('x-auth-token', token);
-      expect(res.status).toBe(401);
+      expect(res.status).toBe(404);
     });
 
     it('should return 200 if valid mongoose id is passed', async() => {
@@ -270,7 +270,7 @@ describe('/api/games', () => {
       const res = await request(server).delete(`/api/games/${idNotInDatabase}`).set('x-auth-token', token)
       expect(res.status).toBe(404);
     });
-    
+
     it('should return a 200 if authorized and admin and valid game id, and id found in database', async() => {
       const token = new User({name: 'test_name', email: 'test@mail.com', isAdmin: true}).generateAuthToken();
       const game ={name: '123', developer: '123', isPublished: false, price: 1};
