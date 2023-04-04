@@ -11,7 +11,7 @@ Set the environment type.<br>
 run `$env:NODE_ENV="test"` for integration/unit testing. <sub>(Note: Syntax for setting depends on OS)</sub><br>
 run `$env:NODE_ENV="development"` for development. <sub>(Note: Syntax for setting depends on OS)</sub><br>
 ## Manually Testing the api routes
-There currently is no front end app for manual testing, so something such as [`Postman`](https://www.postman.com/) can be used.
+There currently is no front end app for manual testing, so something such as [`Postman`](https://www.postman.com/) can be used instead.
 ## Auth and Admin Routes
 Users must first be registered before using auth post/put routes. Use Postman to register users.<br>
 However, it is not currently possible to give users admin status outside of the database. The following test user's _id can be used for testing the admin delete routes:
