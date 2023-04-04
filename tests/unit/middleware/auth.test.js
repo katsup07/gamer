@@ -19,6 +19,5 @@ describe('auth middleware', () => {
     const decodedId = callBack().user._id.toString();
 
 		expect(userId).toBe(decodedId);
-    console.log('user vs userId', user, user)
 	});
 });
