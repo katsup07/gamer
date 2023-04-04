@@ -40,13 +40,12 @@ router.post('/', auth, asyncTryCatchMiddleware(async(req, res) => {
 
 router.put('/:id', [auth, validateId], asyncTryCatchMiddleware(async(req, res) => {
   const { id } = req.params;
-  console.log('!!!!!!!!! id:', id)
   const { body: game } = req;
   const { error } = validateGame(game);
   if(error) return res.status(400).send(error.details[0].message);
 
   const dbGame = await getGame(id);
-  if(!dbGame) return res.status(400).send('No game with the given id was found.')
+  if(!dbGame) return res.status(404).send('No game with the given id was found.')
   // update game
   const updatedGame = await updateGame(id, game);
   res.send(updatedGame);
