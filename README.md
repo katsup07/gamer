@@ -16,9 +16,9 @@ There currently is no front end app for manual testing, so something such as [`P
 Users must first be registered before using auth post/put routes. Use Postman to register users.<br>
 However, it is not currently possible to give users admin status outside of the database. The following test user's _id can be used for testing the admin delete routes:
 ```
-_id: 642422f0ff89040bd0a6b09c
-name: "Lukey2"
-email: "luke2@bear.com"
-password: "$2b$10$faOYWa3d/3/fwIpUbtLwMuU31jl4MLRmZDDRE9aThxMZvUK5.9aLi"
-isAdmin: true
+{
+    "name": "Lukey7",
+    "email": "luke7@bear.com",
+    "password": "010101"
+}
 ```
