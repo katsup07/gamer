@@ -14,11 +14,11 @@ run `$env:NODE_ENV="development"` for development. <sub>(Note: Syntax for settin
 There currently is no front end app for manual testing, so something such as [`Postman`](https://www.postman.com/) can be used instead.
 ## Auth and Admin Routes
 Users must first be registered before using auth post/put routes. Use Postman to register users.<br>
-However, it is not currently possible to give users admin status outside of the database. The following test user's _id can be used for testing the admin delete routes:
+<br>
+However, it is not currently possible to give users admin status outside of the database. This is required to delete data. The following test user can be used for testing the admin delete routes by authenticating and receiving a valid token:
 ```
-_id: 642422f0ff89040bd0a6b09c
-name: "Lukey2"
-email: "luke2@bear.com"
-password: "$2b$10$faOYWa3d/3/fwIpUbtLwMuU31jl4MLRmZDDRE9aThxMZvUK5.9aLi"
-isAdmin: true
+{
+    "email": "luke7@bear.com",
+    "password": "010101"
+}
 ```
