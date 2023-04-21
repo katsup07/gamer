@@ -4,7 +4,7 @@ const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const { findUserByEmail} = require('../models/user-model');
 
-
+// authorizes users so they can post and update data
 // == /api/auth
 router.post('/', async(req, res) => {
   const { email, password } = req.body; 
@@ -18,7 +18,7 @@ router.post('/', async(req, res) => {
     const validPassword = await bcrypt.compare(req.body.password, user.password); //(text-password, hashed-password)
     if(!validPassword) return res.status(400).send('Invalid email or password'); 
   
-    const token = user.generateAuthToken();// encrypts the user id with jwtSecret
+    const token = user.generateAuthToken();// encrypts the user id (and possible isAdmin) with jwtSecret
     res.send(token);
   }catch(err){
     res.status(500).send('Something went wrong on the server: ' + err);
