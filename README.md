@@ -3,8 +3,8 @@ A REST API for an online video game store built with node.js and express.js.
 ## Installation for development
 download zip file<br>
 run `npm install` in root directoy to install dependencies<br>
-run `npm start` to run nodemon<br>
 set environment variable `$env:gamer_jwtPrivateKey="any_string_you_want"` <sub>(Note: Syntax for setting depends on OS)</sub><br>
+run `npm start` to run nodemon<br>
 app will be live on localhost:3000
 ## Integration/Unit Testing
 Set the environment type.<br>
