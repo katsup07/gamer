@@ -10,7 +10,7 @@ app will be live on localhost:3000
 Set the environment type.<br>
 run `$env:NODE_ENV="test"` for integration/unit testing. <sub>(Note: Syntax for setting depends on OS)</sub><br>
 run `$env:NODE_ENV="development"` for development. <sub>(Note: Syntax for setting depends on OS)</sub><br>
-## Manually Testing the api routes
+## Manually Testing the API routes
 There currently is no front end app for manual testing, so something such as [`Postman`](https://www.postman.com/) can be used instead.
 ## Auth and Admin Routes
 Users must first be registered before using auth post/put routes. Use Postman to register users.<br>
