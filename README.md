@@ -43,6 +43,6 @@ Create a new user and receive auth token in response headers.
 <img width="1914" alt="create-new-user" src="https://github.com/katsup07/gamer/assets/90941888/edf755de-87d6-4454-a362-105ba58366d0">
 <br>
 <br>
-Example UI connected to Gamer API
+##Example UI connected to Gamer API
 <img width="935" alt="Desktop Screenshot 2023 07 27 - 18 50 46 69" src="https://github.com/katsup07/gamer/assets/90941888/96b63fd3-868b-4ae6-86fe-de9b91f3544e">
 
