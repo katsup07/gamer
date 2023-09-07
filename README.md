@@ -1,5 +1,5 @@
 # gamer
-A REST API for an online video game store built with node.js and express.js.
+A REST API for an online video game store built with node.js, express.js, and MongoDB.
 ## Installation for development
 download zip file<br>
 run `npm install` in root directoy to install dependencies<br>
